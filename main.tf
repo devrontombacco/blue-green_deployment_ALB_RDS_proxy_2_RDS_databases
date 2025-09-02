@@ -17,24 +17,46 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# Create 1st public subnet
-resource "aws_subnet" "public_subnet1a" {
+# Create 1st subnet - private
+resource "aws_subnet" "private_subnet1a_blue_env" {
   vpc_id                  = aws_vpc.main_vpc.id
-  cidr_block              = var.public_subnet1a_cidr
-  availability_zone       = var.availability_zone_1a
-  map_public_ip_on_launch = true
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "eu-west-1a"
+  map_public_ip_on_launch = false
   tags = {
-    Name = "public_subnet1a"
+    Name = "private_subnet1a_blue_env"
   }
 }
 
-# Create 2nd public subnet
-resource "aws_subnet" "public_subnet1b" {
+# Create 2nd subnet - private
+resource "aws_subnet" "private_subnet1b_green_env" {
   vpc_id                  = aws_vpc.main_vpc.id
-  cidr_block              = var.public_subnet1b_cidr
-  availability_zone       = var.availability_zone_1b
-  map_public_ip_on_launch = true
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "eu-west-1b"
+  map_public_ip_on_launch = false
   tags = {
-    Name = "public_subnet1b"
+    Name = "private_subnet1b_green_env"
+  }
+}
+
+# Create 3rd subnet - public
+resource "aws_subnet" "private_subnet1c_admin_env" {
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "eu-west-1a"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "public_subnet1c_admin_env"
+  }
+}
+
+# Create 4th subnet - public
+resource "aws_subnet" "private_subnet1d_nat_env" {
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "eu-west-1b"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "public_subnet1d_nat_env"
   }
 }
