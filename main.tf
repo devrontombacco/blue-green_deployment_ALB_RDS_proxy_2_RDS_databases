@@ -40,7 +40,7 @@ resource "aws_subnet" "private_subnet1b_green_env" {
 }
 
 # Create 3rd subnet - public
-resource "aws_subnet" "private_subnet1c_admin_env" {
+resource "aws_subnet" "public_subnet1c_admin_env" {
   vpc_id                  = aws_vpc.main_vpc.id
   cidr_block              = "10.0.3.0/24"
   availability_zone       = "eu-west-1c"
@@ -51,7 +51,7 @@ resource "aws_subnet" "private_subnet1c_admin_env" {
 }
 
 # Create 4th subnet - public
-resource "aws_subnet" "private_subnet1d_nat_env" {
+resource "aws_subnet" "public_subnet1d_nat_env" {
   vpc_id                  = aws_vpc.main_vpc.id
   cidr_block              = "10.0.4.0/24"
   availability_zone       = "eu-west-1c"
@@ -76,3 +76,17 @@ resource "aws_route_table" "public_rt" {
   }
 
 }
+
+
+# Route Table Association - 3rd subnet - public
+resource "aws_route_table_association" "public_1c" {
+  subnet_id      = aws_subnet.public_subnet1c_admin_env.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+# Route Table Association - 4th subnet - public 
+resource "aws_route_table_association" "public_1d" {
+  subnet_id      = aws_subnet.public_subnet1d_nat_env.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
