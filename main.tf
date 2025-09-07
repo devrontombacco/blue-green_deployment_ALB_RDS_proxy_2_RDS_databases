@@ -90,16 +90,24 @@ resource "aws_route_table_association" "public_1d" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# Create NAT Gatway 
-resource "aws_nat_gateway" "nat-gtw" {
-  allocation_id = aws_eip.example.id
+# Create Elastic IP for Nat Gateway
+
+resource "aws_eip" "nat_eip" {
+  domain = "vpc"
+
+  tags = {
+    Name = "nat_-eip"
+  }
+}
+
+# Create NAT Gateway in public subnet
+resource "aws_nat_gateway" "nat_gtw" {
+  allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.public_subnet1d_nat_env.id
 
   tags = {
-    Name = "nat-gtw"
+    Name = "nat_gtw"
   }
 
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.example]
+  depends_on = [aws_internet_gateway.igw]
 }
