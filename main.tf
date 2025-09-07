@@ -91,7 +91,6 @@ resource "aws_route_table_association" "public_1d" {
 }
 
 # Create Elastic IP for Nat Gateway
-
 resource "aws_eip" "nat_eip" {
   domain = "vpc"
 
@@ -124,4 +123,16 @@ resource "aws_route_table" "private_rt" {
   tags = {
     Name = "private-rt"
   }
+}
+
+# Route Table Association - 1st subnet - private
+resource "aws_route_table_association" "private_1a" {
+  subnet_id      = aws_subnet.private_subnet1a_blue_env.id
+  route_table_id = aws_route_table.private_rt.id
+}
+
+# Route Table Association - 2nd subnet - private
+resource "aws_route_table_association" "private_1b" {
+  subnet_id      = aws_subnet.private_subnet1b_green_env.id
+  route_table_id = aws_route_table.private_rt.id
 }
