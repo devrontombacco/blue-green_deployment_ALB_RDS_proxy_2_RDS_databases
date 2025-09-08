@@ -148,8 +148,7 @@ variable "my_ip_address" {
 resource "aws_security_group" "sg_bastion_host" {
   name        = "sg_bastion_host"
   description = "Allow inbound ssh traffic and all outbound traffic"
-  vpc_id      = aws_vpc.main.id
-
+  vpc_id      = aws_vpc.main_vpc.id
   tags = {
     Name = "sg_bastion_host"
   }
