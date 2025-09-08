@@ -136,3 +136,30 @@ resource "aws_route_table_association" "private_1b" {
   subnet_id      = aws_subnet.private_subnet1b_green_env.id
   route_table_id = aws_route_table.private_rt.id
 }
+
+# Create Security Group for Bastion Host 
+resource "aws_security_group" "sg_bastion_host" {
+  name        = "sg_bastion_host"
+  description = "Allow inbound ssh traffic and all outbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  tags = {
+    Name = "sg_bastion_host"
+  }
+
+  ingress {
+    description = "SSH from my IP"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    # cidr_blocks = ["${var.my_ip_address}/32"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
