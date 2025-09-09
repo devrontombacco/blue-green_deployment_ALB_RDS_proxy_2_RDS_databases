@@ -277,3 +277,18 @@ resource "aws_instance" "green_ec2" {
   key_name               = "MY_EC2_INSTANCE_KEYPAIR"
 
 }
+
+# Create Application Load Balancer 
+resource "aws_lb" "alb" {
+  name               = "alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.sg_alb.id]
+  subnets            = [aws_subnet.public_subnet1d_nat_env.id]
+
+  enable_deletion_protection = false
+
+  tags = {
+    Environment = "production"
+  }
+}
