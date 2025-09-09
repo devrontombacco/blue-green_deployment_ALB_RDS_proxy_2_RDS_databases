@@ -250,3 +250,30 @@ resource "aws_instance" "example" {
   }
 }
 
+# Create blue EC2 instance
+resource "aws_instance" "blue_ec2" {
+
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.private_subnet1a_blue_env.id
+  tags = {
+    Name = "blue_ec2"
+  }
+  vpc_security_group_ids = [aws_security_group.sg_ec2_private.id]
+  key_name               = "MY_EC2_INSTANCE_KEYPAIR"
+
+}
+
+# Create green EC2 instance
+resource "aws_instance" "green_ec2" {
+
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.private_subnet1a_blue_env.id
+  tags = {
+    Name = "green_ec2"
+  }
+  vpc_security_group_ids = [aws_security_group.sg_ec2_private.id]
+  key_name               = "MY_EC2_INSTANCE_KEYPAIR"
+
+}
