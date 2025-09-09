@@ -301,3 +301,12 @@ resource "aws_lb_target_group" "blue-tg" {
   protocol    = "TCP"
   vpc_id      = aws_vpc.main_vpc.id
 }
+
+# Create Green Target Group
+resource "aws_lb_target_group" "green-tg" {
+  name        = "green-tg"
+  target_type = "instance"
+  port        = 80
+  protocol    = "TCP"
+  vpc_id      = aws_vpc.main_vpc.id
+}
