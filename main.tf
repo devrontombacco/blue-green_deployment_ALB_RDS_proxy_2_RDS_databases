@@ -292,3 +292,12 @@ resource "aws_lb" "alb" {
     Environment = "production"
   }
 }
+
+# Create Blue Target Group
+resource "aws_lb_target_group" "blue-tg" {
+  name        = "blue-tg"
+  target_type = "instance"
+  port        = 80
+  protocol    = "TCP"
+  vpc_id      = aws_vpc.main_vpc.id
+}
