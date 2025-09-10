@@ -317,3 +317,10 @@ resource "aws_lb_target_group_attachment" "blue_tg_attachment" {
   target_id        = aws_instance.blue_ec2.id
   port             = 80
 }
+
+# Register green ec2 with green Target Group
+resource "aws_lb_target_group_attachment" "green_tg_attachment" {
+  target_group_arn = aws_lb_target_group.green-tg.id
+  target_id        = aws_instance.green_ec2.id
+  port             = 80
+}
