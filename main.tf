@@ -310,3 +310,10 @@ resource "aws_lb_target_group" "green-tg" {
   protocol    = "TCP"
   vpc_id      = aws_vpc.main_vpc.id
 }
+
+# Register blue ec2 with blue Target Group
+resource "aws_lb_target_group_attachment" "blue_tg_attachment" {
+  target_group_arn = aws_lb_target_group.blue-tg.id
+  target_id        = aws_instance.blue_ec2.id
+  port             = 80
+}
