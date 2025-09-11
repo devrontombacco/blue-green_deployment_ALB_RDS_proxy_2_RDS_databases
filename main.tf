@@ -324,3 +324,14 @@ resource "aws_lb_target_group_attachment" "green_tg_attachment" {
   target_id        = aws_instance.green_ec2.id
   port             = 80
 }
+
+# Create listener for ALB
+resource "aws_lb_listener" "alb_listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.blue-tg.arn
+  }
+}
