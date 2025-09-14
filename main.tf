@@ -371,11 +371,11 @@ data "aws_ami" "ubuntu" {
 
 # Create bastion host in public subnet
 resource "aws_instance" "bastion_host" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-  subnet_id     = aws_subnet.public_subnet1c_admin_env.id
-  # vpc_security_group_ids = [ ]
-  key_name = "MY_EC2_INSTANCE_KEYPAIR"
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3.micro"
+  subnet_id              = aws_subnet.public_subnet1c_admin_env.id
+  vpc_security_group_ids = [aws_security_group.sg_bastion_host.id]
+  key_name               = "MY_EC2_INSTANCE_KEYPAIR"
 
   tags = {
     Name = "bastion_host"
