@@ -352,23 +352,6 @@ resource "aws_lb_listener_rule" "alb_rule" {
   }
 }
 
-# Create data source for bastion host
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
 # Create bastion host in public subnet
 resource "aws_instance" "bastion_host" {
   ami                    = data.aws_ami.ubuntu.id
@@ -381,3 +364,4 @@ resource "aws_instance" "bastion_host" {
     Name = "bastion_host"
   }
 }
+
