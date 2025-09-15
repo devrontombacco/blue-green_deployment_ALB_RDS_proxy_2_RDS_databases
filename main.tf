@@ -101,7 +101,7 @@ resource "aws_route_table_association" "public_1d" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# Create Elastic IP for Nat Gateway
+# Create 1st Elastic IP for 1st Nat Gateway
 resource "aws_eip" "nat_eip1" {
   domain = "vpc"
 
@@ -110,7 +110,7 @@ resource "aws_eip" "nat_eip1" {
   }
 }
 
-# Create NAT Gateway in public subnet
+# Create 1st NAT Gateway in public subnet
 resource "aws_nat_gateway" "nat_gtw1" {
   allocation_id = aws_eip.nat_eip1.id
   subnet_id     = aws_subnet.public_subnet1d_nat_env.id
@@ -122,7 +122,7 @@ resource "aws_nat_gateway" "nat_gtw1" {
   depends_on = [aws_internet_gateway.igw]
 }
 
-# Create Elastic IP for 2nd Nat Gateway
+# Create 2nd Elastic IP for 2nd Nat Gateway
 resource "aws_eip" "nat_eip2" {
   domain = "vpc"
 
@@ -131,10 +131,10 @@ resource "aws_eip" "nat_eip2" {
   }
 }
 
-# Create NAT Gateway in public subnet
+# Create 2nd NAT Gateway in public subnet
 resource "aws_nat_gateway" "nat_gtw2" {
   allocation_id = aws_eip.nat_eip2.id
-  subnet_id     = aws_subnet.public_subnet1d_nat_env.id
+  subnet_id     = aws_subnet.public_subnet1e_nat_env.id
 
   tags = {
     Name = "nat_gtw2"
