@@ -111,12 +111,12 @@ resource "aws_eip" "nat_eip1" {
 }
 
 # Create NAT Gateway in public subnet
-resource "aws_nat_gateway" "nat_gtw" {
-  allocation_id = aws_eip.nat_eip.id
+resource "aws_nat_gateway" "nat_gtw1" {
+  allocation_id = aws_eip.nat_eip1.id
   subnet_id     = aws_subnet.public_subnet1d_nat_env.id
 
   tags = {
-    Name = "nat_gtw"
+    Name = "nat_gtw1"
   }
 
   depends_on = [aws_internet_gateway.igw]
