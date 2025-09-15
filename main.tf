@@ -122,6 +122,15 @@ resource "aws_nat_gateway" "nat_gtw1" {
   depends_on = [aws_internet_gateway.igw]
 }
 
+# Create Elastic IP for 2nd Nat Gateway
+resource "aws_eip" "nat_eip2" {
+  domain = "vpc"
+
+  tags = {
+    Name = "nat_-eip2"
+  }
+}
+
 # Create Private Route Table
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.main_vpc.id
