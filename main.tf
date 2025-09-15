@@ -102,11 +102,11 @@ resource "aws_route_table_association" "public_1d" {
 }
 
 # Create Elastic IP for Nat Gateway
-resource "aws_eip" "nat_eip" {
+resource "aws_eip" "nat_eip1" {
   domain = "vpc"
 
   tags = {
-    Name = "nat_-eip"
+    Name = "nat_-eip1"
   }
 }
 
