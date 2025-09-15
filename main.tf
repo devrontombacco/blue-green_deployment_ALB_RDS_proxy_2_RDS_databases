@@ -61,6 +61,17 @@ resource "aws_subnet" "public_subnet1d_nat_env" {
   }
 }
 
+# Create 5th subnet - public
+resource "aws_subnet" "public_subnet1e_nat_env" {
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.5.0/24"
+  availability_zone       = "eu-west-1b"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "public_subnet1e_nat_env"
+  }
+}
+
 # Create Public Route Table
 
 resource "aws_route_table" "public_rt" {
