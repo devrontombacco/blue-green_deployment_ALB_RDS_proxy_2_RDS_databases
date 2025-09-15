@@ -280,7 +280,7 @@ resource "aws_instance" "blue_ec2" {
   }
   vpc_security_group_ids = [aws_security_group.sg_ec2_private.id]
   key_name               = "MY_EC2_INSTANCE_KEYPAIR"
-
+  user_data              = base64encode(templatefile("user_data.sh", {}))
 }
 
 # Create green EC2 instance
@@ -294,7 +294,7 @@ resource "aws_instance" "green_ec2" {
   }
   vpc_security_group_ids = [aws_security_group.sg_ec2_private.id]
   key_name               = "MY_EC2_INSTANCE_KEYPAIR"
-
+  user_data              = base64encode(templatefile("user_data.sh", {}))
 }
 
 # Create Application Load Balancer 
