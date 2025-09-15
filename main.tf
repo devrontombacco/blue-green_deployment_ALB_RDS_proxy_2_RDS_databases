@@ -241,15 +241,6 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"]
 }
 
-resource "aws_instance" "example" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-
-  tags = {
-    Name = "ami_for_ec2"
-  }
-}
-
 # Create blue EC2 instance
 resource "aws_instance" "blue_ec2" {
 
