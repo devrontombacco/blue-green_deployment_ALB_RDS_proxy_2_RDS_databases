@@ -149,11 +149,7 @@ resource "aws_route_table" "private_rt" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gtw.id
-  }
-
-  tags = {
-    Name = "private-rt"
+    nat_gateway_id = aws_nat_gateway.nat_gtw1.id
   }
 }
 
@@ -321,7 +317,7 @@ resource "aws_lb_target_group" "blue-tg" {
   name        = "blue-tg"
   target_type = "instance"
   port        = 80
-  protocol    = "TCP"
+  protocol    = "HTTP"
   vpc_id      = aws_vpc.main_vpc.id
 }
 
@@ -330,7 +326,7 @@ resource "aws_lb_target_group" "green-tg" {
   name        = "green-tg"
   target_type = "instance"
   port        = 80
-  protocol    = "TCP"
+  protocol    = "HTTP"
   vpc_id      = aws_vpc.main_vpc.id
 }
 
