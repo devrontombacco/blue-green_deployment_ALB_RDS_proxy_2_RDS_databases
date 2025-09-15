@@ -131,6 +131,18 @@ resource "aws_eip" "nat_eip2" {
   }
 }
 
+# Create NAT Gateway in public subnet
+resource "aws_nat_gateway" "nat_gtw2" {
+  allocation_id = aws_eip.nat_eip2.id
+  subnet_id     = aws_subnet.public_subnet1d_nat_env.id
+
+  tags = {
+    Name = "nat_gtw2"
+  }
+
+  depends_on = [aws_internet_gateway.igw]
+}
+
 # Create Private Route Table
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.main_vpc.id
