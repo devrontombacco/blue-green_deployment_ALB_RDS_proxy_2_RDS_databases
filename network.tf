@@ -45,7 +45,7 @@ resource "aws_subnet" "public_subnet1c_admin_env" {
   vpc_id                  = aws_vpc.main_vpc.id
   cidr_block              = var.admin_subnet_1c
   availability_zone       = "eu-west-1c"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
   tags = {
     Name = "public_subnet1c_admin_env"
   }
